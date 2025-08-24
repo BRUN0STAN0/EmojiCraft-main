@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Patterns in EmojiCraft</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .pattern-section {
+            background: white;
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+        
+        .pattern-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .pattern-title {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .pattern-icon {
+            font-size: 1.5em;
+        }
+        
+        .pattern-category {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            position: relative;
+            white-space: pre-wrap;
+            line-height: 1.4;
+        }
+        
+        .code-block::before {
+            content: "💻 Codice";
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        .implementation-details {
+            background: #e8f5e8;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .benefits {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .uml-diagram {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px dashed #dee2e6;
+        }
+        
+        .file-reference {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 0 6px 6px 0;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        .summary-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .pattern-card {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .highlight {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .pattern-section {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            
+            .header {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎮 Design Patterns in EmojiCraft</h1>
+        <p>Analisi Completa dei Pattern di Progettazione Implementati</p>
+        <p><em>Progetto Java SE - Bruno Stano</em></p>
+    </div>
+
+    <div class="pattern-section">
+        <div class="pattern-category">Creational Pattern</div>
+        <h2 class="pattern-title">
+            <span class="pattern-icon">🏭</span>
+            Factory Pattern
+        </h2>
+        
+        <div class="benefits">
+            <strong>🎯 Cos'è:</strong> Il Factory Pattern è un pattern creazionale che fornisce un'interfaccia per creare oggetti senza specificare le loro classi concrete. Delega la responsabilità di istanziazione a sottoclassi o metodi specializzati.
+        </div>
+
+        <div class="implementation-details">
+            <strong>📋 A cosa serve:</strong>
+            <ul>
+                <li>Centralizzare la logica di creazione degli oggetti</li>
+                <li>Nascondere la complessità di istanziazione al client</li>
+                <li>Permettere la creazione di oggetti correlati o famiglie di oggetti</li>
+                <li>Fornire flessibilità nella scelta del tipo di oggetto da creare</li>
+            </ul>
+        </div>
+
+        <div class="benefits">
+            <strong>⚡ Quando usarlo:</strong>
+            <ul>
+                <li>Quando la creazione di oggetti è complessa o richiede logica specifica</li>
+                <li>Quando il tipo di oggetto da creare viene determinato a runtime</li>
+                <li>Quando si vuole isolare il client dalla conoscenza delle classi concrete</li>
+                <li>Quando si prevede di estendere il sistema con nuovi tipi di oggetti</li>
+            </ul>
+        </div>
+        
+        <div class="implementation-details">
+            <strong>🎯 Implementazione:</strong>
+            <ul>
+                <li><span class="highlight">ItemFactory</span> - Crea oggetti positivi</li>
+                <li><span class="highlight">NegativeItemFactory</span> - Crea oggetti negativi</li>
+            </ul>
+        </div>
+
+        <div class="file-reference">
+            📁 File: src/main/java/factory/ItemFactory.java<br>
+            📁 File: src/main/java/factory/NegativeItemFactory.java
+        </div>
+
+        <div class="code-block">public class ItemFactory {
+    private static final String[] EMOJIS = {"🙂", "😄", "😁", "😍", "🤑"};
+    private static final int[] SCORES = {5, 10, 20, 25, 50};
+    private static final Random random = new Random();
+
+    public static Item createRandomItem(int x, int y) {
+        int index = random.nextInt(EMOJIS.length);
+        String emoji = EMOJIS[index];
+        int score = SCORES[index];
+        return new Item(x, y, emoji, score);
+    }
+}</div>
+
+        <div class="benefits">
+            <strong>✅ Vantaggi:</strong>
+            <ul>
+                <li><strong>Incapsulamento della creazione:</strong> La logica di creazione degli oggetti è centralizzata</li>
+                <li><strong>Flessibilità:</strong> Facile aggiungere nuovi tipi di oggetti</li>
+                <li><strong>Separazione delle responsabilità:</strong> GameWorld non deve conoscere i dettagli della creazione</li>
+                <li><strong>Configurabilità:</strong> Emoji e punteggi possono essere facilmente modificati</li>
+            </ul>
+        </div>
+
+        <p><strong>🔍 Utilizzo nel progetto:</strong> Il Factory Pattern viene utilizzato in <code>GameWorld.spawnNewItem()</code> per creare dinamicamente oggetti di gioco in posizioni casuali, alternando tra oggetti positivi e negativi.</p>
+    </div>
+
+    <div class="pattern-section">
+        <div class="pattern-category">Structural Pattern</div>
+        <h2 class="pattern-title">
+            <span class="pattern-icon">🌳</span>
+            Composite Pattern
+        </h2>
+        
+        <div class="benefits">
+            <strong>🎯 Cos'è:</strong> Il Composite Pattern è un pattern strutturale che permette di comporre oggetti in strutture ad albero per rappresentare gerarchie parte-tutto. Consente ai client di trattare oggetti singoli e composizioni di oggetti in modo uniforme.
+        </div>
+
+        <div class="implementation-details">
+            <strong>📋 A cosa serve:</strong>
+            <ul>
+                <li>Rappresentare gerarchie di oggetti parte-tutto</li>
+                <li>Permettere ai client di trattare oggetti singoli e compositi uniformemente</li>
+                <li>Semplificare il codice client eliminando la necessità di distinguere tra tipi</li>
+                <li>Facilitare l'aggiunta di nuovi tipi di componenti</li>
+            </ul>
+        </div>
+
+        <div class="benefits">
+            <strong>⚡ Quando usarlo:</strong>
+            <ul>
+                <li>Quando si vuole rappresentare gerarchie parte-tutto di oggetti</li>
+                <li>Quando si vuole che i client ignorino la differenza tra composizioni e oggetti singoli</li>
+                <li>Quando la struttura può essere rappresentata come un albero</li>
+                <li>Quando si vuole applicare operazioni uniformemente su tutta la gerarchia</li>
+            </ul>
+        </div>
+        
+        <div class="implementation-details">
+            <strong>🎯 Implementazione:</strong>
+            <ul>
+                <li><span class="highlight">MapComponent</span> - Interfaccia comune (Component)</li>
+                <li><span class="highlight">ItemGroup</span> - Composite per gestire gruppi</li>
+                <li><span class="highlight">Item, Wall, SingleItem</span> - Leaf components</li>
+            </ul>
+        </div>
+
+        <div class="file-reference">
+            📁 File: src/main/java/map/MapComponent.java<br>
+            📁 File: src/main/java/map/ItemGroup.java<br>
+            📁 File: src/main/java/model/Item.java, Wall.java
+        </div>
+
+        <div class="code-block">public interface MapComponent {
+    void render(String[][] grid);
+    int getX();
+    int getY();
+    String getSymbol();
+}
+
+public class ItemGroup implements Serializable {
+    private final List&lt;MapComponent&gt; components = new ArrayList&lt;&gt;();
+    
+    public void add(MapComponent component) {
+        components.add(component);
+    }
+    
+    public void render(String[][] grid) {
+        for (MapComponent component : components) {
+            component.render(grid);
+        }
+    }
+}</div>
+
+        <div class="benefits">
+            <strong>✅ Vantaggi:</strong>
+            <ul>
+                <li><strong>Trattamento uniforme:</strong> Oggetti singoli e gruppi trattati allo stesso modo</li>
+                <li><strong>Struttura ricorsiva:</strong> Possibilità di creare gerarchie complesse</li>
+                <li><strong>Semplicità client:</strong> GameWorld non deve distinguere tra tipi diversi</li>
+                <li><strong>Estensibilità:</strong> Facile aggiungere nuovi tipi di componenti</li>
+            </ul>
+        </div>
+
+        <p><strong>🔍 Utilizzo nel progetto:</strong> Il Composite Pattern permette a <code>GameWorld</code> di gestire tutti gli elementi della mappa (muri, oggetti, terreno) attraverso un'unica interfaccia, semplificando il rendering e la gestione delle collisioni.</p>
+    </div>
+
+    <div class="pattern-section">
+        <div class="pattern-category">Behavioral Pattern</div>
+        <h2 class="pattern-title">
+            <span class="pattern-icon">🔄</span>
+            Iterator Pattern
+        </h2>
+        
+        <div class="benefits">
+            <strong>🎯 Cos'è:</strong> Il Iterator Pattern è un pattern comportamentale che fornisce un modo per accedere sequenzialmente agli elementi di una collezione senza esporre la sua rappresentazione interna. Separa l'algoritmo di attraversamento dalla struttura dati.
+        </div>
+
+        <div class="implementation-details">
+            <strong>📋 A cosa serve:</strong>
+            <ul>
+                <li>Fornire accesso sequenziale agli elementi senza esporre la struttura interna</li>
+                <li>Supportare diversi tipi di attraversamento della stessa struttura</li>
+                <li>Fornire un'interfaccia uniforme per attraversare diverse strutture</li>
+                <li>Separare la responsabilità di attraversamento dalla struttura dati</li>
+            </ul>
+        </div>
+
+        <div class="benefits">
+            <strong>⚡ Quando usarlo:</strong>
+            <ul>
+                <li>Quando si vuole accedere al contenuto di una collezione senza esporne la struttura</li>
+                <li>Quando si vogliono supportare diversi modi di attraversare la stessa collezione</li>
+                <li>Quando si vuole fornire un'interfaccia uniforme per attraversare diverse strutture</li>
+                <li>Quando si vuole isolare il codice di attraversamento dalla logica di business</li>
+            </ul>
+        </div>
+        
+        <div class="implementation-details">
+            <strong>🎯 Implementazione:</strong>
+            <ul>
+                <li><span class="highlight">MapIterator</span> - Interfaccia iterator personalizzata</li>
+                <li><span class="highlight">ItemGroupIterator</span> - Implementazione concreta</li>
+            </ul>
+        </div>
+
+        <div class="file-reference">
+            📁 File: src/main/java/map/MapIterator.java<br>
+            📁 File: src/main/java/map/ItemGroupIterator.java
+        </div>
+
+        <div class="code-block">public interface MapIterator extends Iterator&lt;MapComponent&gt; {
+    // Estende Iterator standard per componenti mappa
+}
+
+public class ItemGroupIterator implements MapIterator {
+    private final List&lt;MapComponent&gt; components;
+    private int position = 0;
+
+    @Override
+    public boolean hasNext() {
+        return position < components.size();
+    }
+
+    @Override
+    public MapComponent next() {
+        if (!hasNext()) {
+            throw new NoSuchElementException("No more components.");
+        }
+        return components.get(position++);
+    }
+}</div>
+
+        <div class="benefits">
+            <strong>✅ Vantaggi:</strong>
+            <ul>
+                <li><strong>Accesso sequenziale:</strong> Attraversamento controllato degli elementi</li>
+                <li><strong>Incapsulamento:</strong> Struttura interna nascosta al client</li>
+                <li><strong>Flessibilità:</strong> Diversi algoritmi di attraversamento</li>
+                <li><strong>Sicurezza:</strong> Controllo sui limiti durante l'iterazione</li>
+            </ul>
+        </div>
+
+        <p><strong>🔍 Utilizzo nel progetto:</strong> L'Iterator Pattern consente di attraversare gli elementi della mappa in modo sicuro e controllato, specialmente utile per operazioni di rendering e ricerca di collisioni.</p>
+    </div>
+
+    <div class="pattern-section">
+        <div class="pattern-category">Structural Pattern</div>
+        <h2 class="pattern-title">
+            <span class="pattern-icon">🛡️</span>
+            Exception Shielding Pattern
+        </h2>
+        
+        <div class="benefits">
+            <strong>🎯 Cos'è:</strong> L'Exception Shielding Pattern è un pattern strutturale che protegge il sistema da eccezioni non gestite, fornendo un livello di astrazione che cattura, gestisce e trasforma le eccezioni in risposte controllate.
+        </div>
+
+        <div class="implementation-details">
+            <strong>📋 A cosa serve:</strong>
+            <ul>
+                <li>Prevenire crash dell'applicazione dovuti a eccezioni non gestite</li>
+                <li>Fornire messaggi di errore user-friendly invece di stack trace tecnici</li>
+                <li>Centralizzare la gestione degli errori in un punto del sistema</li>
+                <li>Permettere logging strutturato degli errori per debugging</li>
+            </ul>
+        </div>
+
+        <div class="benefits">
+            <strong>⚡ Quando usarlo:</strong>
+            <ul>
+                <li>In applicazioni dove la stabilità è critica</li>
+                <li>Quando si interfaccia con sistemi esterni che possono fallire</li>
+                <li>In applicazioni web/server dove l'utente non deve vedere errori tecnici</li>
+                <li>Quando si vuole implementare una strategia di error handling consistente</li>
+            </ul>
+        </div>
+        
+        <div class="implementation-details">
+            <strong>🎯 Implementazione:</strong>
+            <ul>
+                <li><span class="highlight">EmojiCraftException</span> - Eccezione personalizzata</li>
+                <li><span class="highlight">LoggerUtil</span> - Logging centralizzato</li>
+                <li><span class="highlight">Try-catch blocks</span> - Gestione sistematica</li>
+            </ul>
+        </div>
+
+        <div class="file-reference">
+            📁 File: src/main/java/exception/EmojiCraftException.java<br>
+            📁 File: src/main/java/util/LoggerUtil.java
+        </div>
+
+        <div class="code-block">public class EmojiCraftException extends RuntimeException {
+    public EmojiCraftException(String message) {
+        super(message);
+    }
+
+    public EmojiCraftException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+
+// Esempio di utilizzo in ServerManager
+post("/move", (req, res) -> {
+    String dir = req.queryParams("dir");
+    if (dir == null || !dir.matches("[WASD]")) {
+        throw new EmojiCraftException("Invalid direction: " + dir);
+    }
+    // ... resto della logica
+});</div>
+
+        <div class="benefits">
+            <strong>✅ Vantaggi:</strong>
+            <ul>
+                <li><strong>Robustezza:</strong> Previene crash improvvisi dell'applicazione</li>
+                <li><strong>Debugging facilitato:</strong> Log centralizzato degli errori</li>
+                <li><strong>User Experience:</strong> Nessun stack trace visibile agli utenti</li>
+                <li><strong>Manutenibilità:</strong> Gestione consistente degli errori</li>
+            </ul>
+        </div>
+
+        <p><strong>🔍 Utilizzo nel progetto:</strong> Il pattern è implementato sistematicamente in tutto il codice, con particolare attenzione in <code>GamePhysics</code>, <code>GameStateManager</code> e <code>ServerManager</code> per garantire stabilità durante l'esecuzione.</p>
+    </div>
+
+    <div class="pattern-section">
+        <div class="pattern-category">Creational Pattern</div>
+        <h2 class="pattern-title">
+            <span class="pattern-icon">👑</span>
+            Singleton Pattern
+        </h2>
+        
+        <div class="benefits">
+            <strong>🎯 Cos'è:</strong> Il Singleton Pattern è un pattern creazionale che garantisce che una classe abbia una sola istanza e fornisce un punto di accesso globale a tale istanza. Controlla rigorosamente come e quando viene creata l'istanza.
+        </div>
+
+        <div class="implementation-details">
+            <strong>📋 A cosa serve:</strong>
+            <ul>
+                <li>Garantire che esista una sola istanza di una classe nell'applicazione</li>
+                <li>Fornire accesso globale a quella istanza</li>
+                <li>Controllare l'inizializzazione dell'istanza (lazy loading)</li>
+                <li>Risparmiare risorse quando serve una sola istanza condivisa</li>
+            </ul>
+        </div>
+
+        <div class="benefits">
+            <strong>⚡ Quando usarlo:</strong>
+            <ul>
+                <li>Per oggetti che devono essere unici nel sistema (logger, cache, pool di connessioni)</li>
+                <li>Quando serve coordinare azioni attraverso il sistema da un punto centrale</li>
+                <li>Per gestire risorse condivise che devono essere uniche</li>
+                <li>Quando l'overhead di creare multiple istanze è inaccettabile</li>
+            </ul>
+        </div>
+        
+        <div class="implementation-details">
+            <strong>🎯 Implementazione:</strong>
+            <ul>
+                <li><span class="highlight">LoggerUtil</span> - Singleton per logging globale</li>
+                <li><span class="highlight">GameSettings</span> - Singleton per configurazioni</li>
+            </ul>
+        </div>
+
+        <div class="file-reference">
+            📁 File: src/main/java/util/LoggerUtil.java<br>
+            📁 File: src/main/java/util/GameSettings.java
+        </div>
+
+        <div class="code-block">public class LoggerUtil {
+    private static LoggerUtil instance;
+    private static final Logger logger = Logger.getLogger("GlobalLogger");
+
+    private LoggerUtil() {
+        try {
+            FileHandler fileHandler = new FileHandler("game_logs.log", true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            logger.addHandler(fileHandler);
+        } catch (IOException e) {
+            System.err.println("Errore nel logger: " + e.getMessage());
+        }
+    }
+
+    public static synchronized LoggerUtil getInstance() {
+        if (instance == null) {
+            instance = new LoggerUtil();
+        }
+        return instance;
+    }
+}</div>
+
+        <div class="benefits">
+            <strong>✅ Vantaggi:</strong>
+            <ul>
+                <li><strong>Istanza unica:</strong> Garantisce una sola istanza del logger</li>
+                <li><strong>Accesso globale:</strong> Disponibile ovunque nell'applicazione</li>
+                <li><strong>Lazy initialization:</strong> Creato solo quando necessario</li>
+                <li><strong>Thread-safe:</strong> Uso di synchronized per sicurezza</li>
+            </ul>
+        </div>
+
+        <p><strong>🔍 Utilizzo nel progetto:</strong> Il Singleton garantisce che ci sia un solo logger e un solo set di configurazioni in tutta l'applicazione, evitando duplicazioni e conflitti.</p>
+    </div>
+
+    <div class="pattern-section">
+        <div class="pattern-category">Architectural Pattern</div>
+        <h2 class="pattern-title">
+            <span class="pattern-icon">🏗️</span>
+            MVC (Model-View-Controller)
+        </h2>
+        
+        <div class="benefits">
+            <strong>🎯 Cos'è:</strong> Il Model-View-Controller è un pattern architetturale che separa un'applicazione in tre componenti interconnessi: Model (dati e logica), View (interfaccia utente), Controller (gestione input e coordinamento).
+        </div>
+
+        <div class="implementation-details">
+            <strong>📋 A cosa serve:</strong>
+            <ul>
+                <li>Separare la logica di business dalla presentazione</li>
+                <li>Permettere sviluppo parallelo di diverse parti dell'applicazione</li>
+                <li>Rendere l'applicazione più manutenibile e testabile</li>
+                <li>Consentire il riutilizzo di componenti in contesti diversi</li>
+            </ul>
+        </div>
+
+        <div class="benefits">
+            <strong>⚡ Quando usarlo:</strong>
+            <ul>
+                <li>In applicazioni web e desktop complesse</li>
+                <li>Quando si vuole separare logica di business e presentazione</li>
+                <li>Quando team diversi lavorano su UI e backend</li>
+                <li>Quando si prevede di cambiare frequentemente l'interfaccia utente</li>
+            </ul>
+        </div>
+        
+        <div class="implementation-details">
+            <strong>🎯 Implementazione:</strong>
+            <ul>
+                <li><span class="highlight">Model:</span> GameWorld, Player, Item</li>
+                <li><span class="highlight">View:</span> Frontend HTML/CSS/JS</li>
+                <li><span class="highlight">Controller:</span> ServerManager, GamePhysics</li>
+            </ul>
+        </div>
+
+        <div class="file-reference">
+            📁 Model: src/main/java/game/, src/main/java/model/<br>
+            📁 Controller: src/main/java/server/ServerManager.java<br>
+            📁 View: public/ (frontend files)
+        </div>
+
+        <div class="code-block">// Model - GameWorld gestisce lo stato del gioco
+public class GameWorld {
+    private int score = 0;
+    private final ItemGroup items = new ItemGroup();
+    // ... logica di business
+}
+
+// Controller - ServerManager gestisce le richieste
+public class ServerManager {
+    post("/move", (req, res) -> {
+        String dir = req.queryParams("dir");
+        boolean itemCollected = gameWorld.movePlayer(player, dir, gamePhysics);
+        return gson.toJson(gameWorld.getMoveResponse(player, itemCollected));
+    });
+}</div>
+
+        <div class="benefits">
+            <strong>✅ Vantaggi:</strong>
+            <ul>
+                <li><strong>Separazione responsabilità:</strong> Logica, presentazione e controllo separati</li>
+                <li><strong>Manutenibilità:</strong> Modifiche a una parte non influenzano le altre</li>
+                <li><strong>Testabilità:</strong> Ogni componente può essere testato indipendentemente</li>
+                <li><strong>Scalabilità:</strong> Facile aggiungere nuove funzionalità</li>
+            </ul>
+        </div>
+
+        <p><strong>🔍 Utilizzo nel progetto:</strong> L'architettura MVC separa chiaramente la logica di gioco (Model) dalla presentazione web (View) e dalla gestione delle richieste HTTP (Controller).</p>
+    </div>
+
+    <div class="pattern-section">
+        <div class="pattern-category">Behavioral Pattern</div>
+        <h2 class="pattern-title">
+            <span class="pattern-icon">👁️</span>
+            Observer Pattern (Implicito)
+        </h2>
+        
+        <div class="benefits">
+            <strong>🎯 Cos'è:</strong> L'Observer Pattern è un pattern comportamentale che definisce una dipendenza uno-a-molti tra oggetti, in modo che quando un oggetto cambia stato, tutti i suoi dipendenti vengono notificati e aggiornati automaticamente.
+        </div>
+
+        <div class="implementation-details">
+            <strong>📋 A cosa serve:</strong>
+            <ul>
+                <li>Implementare comunicazione tra oggetti in modo disaccoppiato</li>
+                <li>Notificare automaticamente cambiamenti di stato a oggetti interessati</li>
+                <li>Supportare il principio open/closed (aperto per estensione, chiuso per modifica)</li>
+                <li>Creare relazioni dinamiche tra oggetti a runtime</li>
+            </ul>
+        </div>
+
+        <div class="benefits">
+            <strong>⚡ Quando usarlo:</strong>
+            <ul>
+                <li>Quando il cambiamento di un oggetto richiede l'aggiornamento di altri oggetti</li>
+                <li>Quando il numero di oggetti da notificare è variabile o sconosciuto</li>
+                <li>Quando si vuole evitare accoppiamento stretto tra oggetti</li>
+                <li>In architetture event-driven o reactive</li>
+            </ul>
+        </div>
+        
+        <div class="implementation-details">
+            <strong>🎯 Implementazione:</strong>
+            <ul>
+                <li><span class="highlight">AtomicBoolean gameActive</span> - Subject osservato</li>
+                <li><span class="highlight">GamePhysics, GameTimer</span> - Observer impliciti</li>
+            </ul>
+        </div>
+
+        <div class="file-reference">
+            📁 File: src/main/java/Main.java<br>
+            📁 File: src/main/java/game/GamePhysics.java
+        </div>
+
+        <div class="code-block">// Subject - stato condiviso
+private static final AtomicBoolean gameActive = new AtomicBoolean(true);
+
+// Observer implicito - GamePhysics reagisce al cambiamento
+public class GamePhysics implements Runnable {
+    @Override
+    public void run() {
+        while (running) {
+            if (gameWorld.isGameActive()) {
+                applyGravity();
+                gameWorld.updateItems();
+            }
+            Thread.sleep(PHYSICS_INTERVAL);
+        }
+    }
+}</div>
+
+        <div class="benefits">
+            <strong>✅ Vantaggi:</strong>
+            <ul>
+                <li><strong>Reattività:</strong> Componenti reagiscono automaticamente ai cambiamenti</li>
+                <li><strong>Disaccoppiamento:</strong> GameWorld non deve conoscere tutti gli observer</li>
+                <li><strong>Estensibilità:</strong> Facile aggiungere nuovi observer</li>
+                <li><strong>Thread-safety:</strong> AtomicBoolean garantisce accesso sicuro</li>
+            </ul>
+        </div>
+
+        <p><strong>🔍 Utilizzo nel progetto:</strong> Anche se non esplicitamente implementato come pattern classico, il comportamento Observer è presente nella gestione dello stato del gioco tra thread diversi.</p>
+    </div>
+
+    <div class="pattern-section">
+        <div class="pattern-category">Architectural Pattern</div>
+        <h2 class="pattern-title">
+            <span class="pattern-icon">📊</span>
+            Data Access Object (DAO)
+        </h2>
+        
+        <div class="benefits">
+            <strong>🎯 Cos'è:</strong> Il Data Access Object Pattern è un pattern strutturale che fornisce un'interfaccia astratta per accedere a dati persistenti, incapsulando i dettagli di accesso al database o al sistema di storage.
+        </div>
+
+        <div class="implementation-details">
+            <strong>📋 A cosa serve:</strong>
+            <ul>
+                <li>Separare la logica di accesso ai dati dalla logica di business</li>
+                <li>Fornire un'interfaccia uniforme per diverse sorgenti di dati</li>
+                <li>Permettere il cambio di tecnologia di persistenza senza impatto sul codice</li>
+                <li>Centralizzare e standardizzare le operazioni sui dati</li>
+            </ul>
+        </div>
+
+        <div class="benefits">
+            <strong>⚡ Quando usarlo:</strong>
+            <ul>
+                <li>Quando si vuole isolare la logica di business dall'accesso ai dati</li>
+                <li>In applicazioni che usano multiple sorgenti di dati</li>
+                <li>Quando si prevede di cambiare il sistema di persistenza</li>
+                <li>Per standardizzare le operazioni CRUD in tutta l'applicazione</li>
+            </ul>
+        </div>
+        
+        <div class="implementation-details">
+            <strong>🎯 Implementazione:</strong>
+            <ul>
+                <li><span class="highlight">GameStateManager</span> - DAO per stato del gioco</li>
+                <li><span class="highlight">Serializzazione JSON e Binaria</span> - Persistenza duale</li>
+            </ul>
+        </div>
+
+        <div class="file-reference">
+            📁 File: src/main/java/game/GameStateManager.java
+        </div>
+
+        <div class="code-block">public class GameStateManager {
+    private static final String SAVE_FILE = "game_state.dat";
+    private static final String SAVE_FILE_JSON = "game_state.json";
+
+    public static void saveGameStateDual(int playerX, int playerY, 
+                                       int score, String[][] grid, 
+                                       int timeRemaining) {
+        GameState gameState = new GameState(playerX, playerY, score, grid, timeRemaining);
+        
+        // Salvataggio JSON
+        try (FileWriter writer = new FileWriter(SAVE_FILE_JSON)) {
+            gson.toJson(gameState, writer);
+        }
+    }
+
+    public static GameState loadGameStateWithFallback() {
+        // Prova JSON prima, poi binario
+        GameState state = loadGameStateFromJson();
+        return state != null ? state : loadGameState();
+    }
+}</div>
+
+        <div class="benefits">
+            <strong>✅ Vantaggi:</strong>
+            <ul>
+                <li><strong>Astrazione persistenza:</strong> GameWorld non conosce dettagli di salvataggio</li>
+                <li><strong>Flessibilità formato:</strong> Supporta JSON e binario</li>
+                <li><strong>Fallback strategy:</strong> Se un formato fallisce, prova l'altro</li>
+                <li><strong>Manutenibilità:</strong> Logica di persistenza centralizzata</li>
+            </ul>
+        </div>
+
+        <p><strong>🔍 Utilizzo nel progetto:</strong> Il DAO pattern incapsula completamente la logica di persistenza, permettendo di cambiare formato di salvataggio senza modificare la logica di gioco.</p>
+    </div>
+
+    <div class="summary-section">
+        <h2>📋 Riepilogo Patterns Implementati</h2>
+        
+        <div class="pattern-grid">
+            <div class="pattern-card">
+                <h3>🏭 Factory</h3>
+                <p>Creazione dinamica oggetti di gioco</p>
+            </div>
+            
+            <div class="pattern-card">
+                <h3>🌳 Composite</h3>
+                <p>Gestione gerarchica componenti mappa</p>
+            </div>
+            
+            <div class="pattern-card">
+                <h3>🔄 Iterator</h3>
+                <p>Attraversamento sicuro collezioni</p>
+            </div>
+            
+            <div class="pattern-card">
+                <h3>🛡️ Exception Shielding</h3>
+                <p>Gestione robusta degli errori</p>
+            </div>
+            
+            <div class="pattern-card">
+                <h3>👑 Singleton</h3>
+                <p>Logger e configurazioni globali</p>
+            </div>
+            
+            <div class="pattern-card">
+                <h3>🏗️ MVC</h3>
+                <p>Architettura separata client-server</p>
+            </div>
+            
+            <div class="pattern-card">
+                <h3>👁️ Observer</h3>
+                <p>Reattività stato di gioco</p>
+            </div>
+            
+            <div class="pattern-card">
+                <h3>📊 DAO</h3>
+                <p>Astrazione persistenza dati</p>
+            </div>
+        </div>
+        
+        <p style="margin-top: 30px; font-size: 1.1em;">
+            <strong>Il progetto EmojiCraft dimostra un'eccellente implementazione di 8 design patterns fondamentali, 
+            garantendo un codice robusto, manutenibile e estensibile.</strong>
+        </p>
+        
+        <p style="margin-top: 20px; opacity: 0.9;">
+            Ogni pattern è stato scelto strategicamente per risolvere problemi specifici del dominio del gioco,
+            risultando in un'architettura solida e professionale.
+        </p>
+    </div>
+    
+    <script>
+        // Funzione per generare PDF
+        function generatePDF() {
+            window.print();
+        }
+        
+        // Aggiungi pulsante per generare PDF
+        document.addEventListener('DOMContentLoaded', function() {
+            const button = document.createElement('button');
+            button.textContent = '📄 Genera PDF';
+            button.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(45deg, #667eea, #764ba2);
+                color: white;
+                border: none;
+                padding: 15px 25px;
+                border-radius: 25px;
+                cursor: pointer;
+                font-weight: bold;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 1000;
+                transition: transform 0.3s ease;
+            `;
+            
+            button.onmouseover = () => button.style.transform = 'scale(1.05)';
+            button.onmouseout = () => button.style.transform = 'scale(1)';
+            button.onclick = generatePDF;
+            
+            document.body.appendChild(button);
+        });
+    </script>
+</body>
+</html>
