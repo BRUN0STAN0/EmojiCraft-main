@@ -22,7 +22,8 @@ public class ItemFactory {
     private static final Random random = new Random();
 
     /**
-     * Factory Pattern: Metodo per creare un oggetto Item con emoji e punteggio casuali
+     * Factory Pattern: servizio di fabbrica per creare oggetti Item.
+     * Metodo per creare un oggetto Item con emoji e punteggio casuali
      * in una posizione specifica.
      */
     public static Item createRandomItem(int x, int y) {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Composite Pattern:
+ * Composite Pattern:  il pattern Composite consente di trattare oggetti singoli e composizioni di oggetti in modo uniforme.
  * La classe ItemGroup implementa il Composite Pattern per gestire un insieme di MapComponent come un'unica entità.
  * Questo pattern permette di trattare gruppi di oggetti e singoli oggetti in modo uniforme,
  * facilitando operazioni come aggiunta, rimozione e renderizzazione sulla mappa.

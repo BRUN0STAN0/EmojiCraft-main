@@ -14,6 +14,13 @@ public class Item implements MapComponent, Serializable {
      * Java genera un InvalidClassException durante la deserializzazione.
      * 
      * Utilizzare serialVersionUID è importante per evitare problemi quando la classe cambia nel tempo.
+     * E' importante anche in ambito di sicurezza, poiché previene attacchi di deserializzazione
+     * che potrebbero sfruttare differenze tra versioni della classe.
+     * 
+     * 1L indica che questa è la prima versione della classe. Ma si poteva anche scegliere un altro numero
+     * o una stringa hash per rappresentare la versione della classe.
+     * In questo caso, 1L è sufficiente perché la classe è semplice e non
+     * contiene logica complessa che potrebbe richiedere versioni successive.
      */
     private static final long serialVersionUID = 1L;
 
@@ -24,11 +31,16 @@ public class Item implements MapComponent, Serializable {
     private int score;
 
     /**
-     * Composite Pattern:
+     * Composite Pattern: il composite pattern è utilizzato per trattare oggetti singoli e composizioni di oggetti in modo uniforme.
+     * Questo approccio semplifica la gestione di strutture complesse, consentendo
+     * di trattare oggetti composti e singoli con la stessa interfaccia.
+     * 
      * Il costruttore di Item permette di creare un singolo componente della mappa,
      * gestibile uniformemente insieme ad altri tramite ItemGroup.
      *
-     * DTO Pattern:
+     * DTO Pattern: DTO (Data Transfer Object)
+     * La classe Item funge da DTO per trasferire informazioni tra il mondo di gioco e l'interfaccia utente.
+     * 
      * Incapsula lo stato dell'oggetto (posizione, emoji, punteggio, visibilità) per facilitarne il trasferimento tra componenti.
      */
     public Item(int x, int y, String emoji, int score) {

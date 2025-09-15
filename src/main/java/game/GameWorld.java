@@ -360,6 +360,9 @@ public class GameWorld {
     /**
      * Facade Pattern: resetGame incapsula la logica di reset dell'intero stato del mondo,
      * semplificando la gestione della partita.
+     * Questo pattern permette di centralizzare le operazioni di reset,
+     * migliorando la leggibilità e la manutenzione del codice.
+     * Facade significa "facciata", indicando che questo metodo fornisce un'interfaccia semplice per operazioni complesse.
      */
     public void resetGame() {
         this.items.getComponents().clear(); 

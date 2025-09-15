@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GameUtils {
+    // Singleton Pattern: LoggerUtil fornisce un'unica istanza globale del logger.
+    // Questo garantisce che tutti i componenti del sistema usino lo stesso logger.
     private static final Logger logger = LoggerUtil.getInstance().getGlobalLogger();
 
     /**
@@ -23,11 +25,16 @@ public class GameUtils {
      * - Favorisce la separazione tra logica di gioco e gestione del tempo.
      */
     public static void startGameTimer(GameWorld gameWorld, Player player, AtomicBoolean gameActive, int durationInSeconds) {
+        // Usa la durata specificata o un valore di default se non valido, evitando valori negativi
         int duration = durationInSeconds > 0 ? durationInSeconds : GameSettings.getInstance().getGameDurationInSeconds(); // Tempo dal JSON
+        // Thread separato per il timer, che aggiorna il tempo rimanente ogni secondo
+        // e termina il gioco quando il tempo scade
         new Thread(() -> {
             try {
                 for (int i = duration; i > 0; i--) {
+                    logger.log(Level.INFO, "Tempo rimanente: " + i + " secondi");
                     Thread.sleep(1000); // 1 secondo
+                    // Aggiorna il tempo rimanente nel mondo di gioco
                     gameWorld.setTimeRemaining(i);
                 }
             } catch (InterruptedException e) {

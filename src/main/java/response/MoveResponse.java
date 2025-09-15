@@ -1,7 +1,7 @@
 package response;
 
 /**
- * DTO Pattern:
+ * DTO Pattern: DTO (Data Transfer Object)
  * La classe MoveResponse incapsula lo stato risultante da un'azione di movimento del giocatore.
  * Questo pattern facilita il trasferimento di dati tra componenti (ad esempio tra logica di gioco e interfaccia),
  * rendendo il codice più leggibile, manutenibile e facilmente serializzabile.

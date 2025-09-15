@@ -33,11 +33,11 @@ public class Main {
 
         // Inizializziamo il mondo e il giocatore
         GameWorld gameWorld = new GameWorld();
-
         Player player = new Player(DEFAULT_PLAYER_X, DEFAULT_PLAYER_Y);
 
         // Factory/Builder Pattern: GameStateManager gestisce la creazione e il caricamento dello stato del gioco.
         // Permette di astrarre la logica di persistenza e ripristino dello stato.
+        // Delegando questa responsabilità a GameStateManager, il codice principale rimane pulito e focalizzato sulla logica di gioco.
         initializeGameState(gameWorld, player);
 
         // Thread Pattern: Separazione delle responsabilità tramite thread dedicati per fisica e timer.
@@ -125,7 +125,7 @@ public class Main {
      * Configura un hook per salvare automaticamente lo stato del gioco
      * alla chiusura del programma.
      * Hook Pattern: Utilizzo di shutdown hook per gestire la persistenza.
-     * Il Hook Pattern permette di eseguire operazioni di cleanup o salvataggio
+     * L' Hook Pattern permette di eseguire operazioni di cleanup o salvataggio
      * quando l'applicazione viene chiusa, garantendo la persistenza dei dati.
      */
     private static void setupShutdownHook(GameWorld gameWorld, Player player) {

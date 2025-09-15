@@ -6,7 +6,7 @@ public class Player {
     private String emoji = "🧍🏻‍♂️"; // Emoji predefinita
 
     /**
-     * DTO Pattern:
+     * DTO Pattern: Data Transfer Object
      * La classe Player rappresenta un oggetto di trasferimento dati che incapsula
      * lo stato del giocatore (posizione e emoji) e lo rende facilmente gestibile e serializzabile.
      * Questo pattern facilita la comunicazione tra componenti e la manipolazione dello stato.

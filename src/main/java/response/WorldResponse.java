@@ -1,7 +1,7 @@
 package response;
 
 /**
- * DTO Pattern:
+ * DTO Pattern: DTO (Data Transfer Object)
  * La classe WorldResponse incapsula lo stato globale del mondo di gioco dopo un'azione.
  * Questo pattern facilita il trasferimento di dati tra componenti (ad esempio tra logica di gioco e interfaccia),
  * rendendo il codice più leggibile, manutenibile e facilmente serializzabile.

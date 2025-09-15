@@ -31,7 +31,12 @@ public class ServerManager {
 
     private final GameWorld gameWorld;
     private final Player player;
-    private final AtomicBoolean gameActive; // Stato del gioco
+    // Stato del gioco, utilizzo atomic per sicurezza in ambienti multi-thread
+    // AtomicBoolean garantisce operazioni atomiche su booleani, evitando condizioni di gara
+    // e garantendo la coerenza dello stato del gioco tra thread concorrenti.
+    // Questo è cruciale in un ambiente server dove più thread possono accedere e modificare
+    // lo stato del gioco contemporaneamente.
+    private final AtomicBoolean gameActive;
     private final Gson gson = new Gson();
     private final int timerRemaining;
 
@@ -137,10 +142,17 @@ public class ServerManager {
             gameActive.set(true); // Riattiva il gioco
 
             // Thread Pattern: Avvia nuovamente il motore fisico in un thread separato
+            // Questo consente al motore fisico di funzionare in modo indipendente
+            // dal thread principale del server, migliorando la reattività
+            // e la gestione delle operazioni di gioco.
             Thread physicsThread = new Thread(new GamePhysics(gameWorld, player));
             physicsThread.start();
-            logger.info("Motore fisico riavviato.");
-
+            // Log per confermare l'avvio del motore fisico, utile per il debugging
+            // La differenza tra logger e System.out.println è che il logger
+            // permette di gestire i livelli di log e la destinazione dei messaggi
+            // (console, file, ecc.), migliorando la tracciabilità e la manutenzione
+            // dei log dell'applicazione.
+            logger.log(Level.INFO, "Motore fisico riavviato.");
             // Thread Pattern: Avvia il timer del gioco in un thread separato
             new Thread(() -> GameUtils.startGameTimer(gameWorld, player, gameActive, gameWorld.getTimeRemaining())).start();
             logger.info("Timer del gioco riavviato.");
