@@ -57,7 +57,7 @@ public class ServerManager {
     }
 
     public void startServer() {
-        staticFiles.externalLocation("C:/Users/bruno/Desktop/OOP/EmojiCraftMaven/public");
+        staticFiles.location("/public"); // Cartella per i file statici (HTML, CSS, JS)
         port(4567);
 
         // Rotta per ottenere lo stato del mondo

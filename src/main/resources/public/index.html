@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmojiCraft</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Audio Elements -->
+    <audio id="collectSound" src="sounds/collect.mp3" preload="auto"></audio>
+    <audio id="music" src="sounds/music.mp3" autoplay></audio>
+
+    <!-- Header -->
+    <header>
+        <h1>EmojiCraft</h1>
+        <p>Use W, A, S, D to move and collect items!</p>
+    </header>
+    
+    <!-- Score Section -->
+    <div id="hud">
+        <h2 id="score">0</h2>
+        <h2 id="timer"></h2>
+    </div>
+
+    <!-- Grid Section -->
+    <div id="grid-container">
+        <div id="grid"></div>
+    </div>
+
+    <!-- Buttons -->
+    <div id="controls">
+        <button id="restart-button">Restart</button>
+    </div>
+
+    <!-- Game Over Overlay -->
+    <div id="game-over-overlay" class="hidden">
+        <h1>Game Over!</h1>
+        <h2 id="final-score">Your Score: 0</h2>
+        <button id="play-again-button">Play Again</button>
+    </div>
+
+    <script src="logic.js"></script>
+</body>
+</html>
